@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hady Mobile | خدمات تخصصی موبایل</title>
+    <!-- فونت وزیر -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            color: #e0e0e0;
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #0a0f1e;
+            position: relative;
+        }
+
+        /* کانواس پس‌زمینه متحرک با موشن بلور */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            filter: blur(0.8px); /* بلور پایه */
+        }
+
+        /* محتوای اصلی */
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* هدر با لوگو */
+        header {
+            text-align: center;
+            margin: 2rem 0 1rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d2ff, #7b2ff7, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 25px rgba(0,210,255,0.5));
+            letter-spacing: 2px;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0,210,255,0.4)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0,210,255,0.8)); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #8ab4f8;
+            font-weight: 300;
+            border-bottom: 2px solid rgba(0,210,255,0.3);
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            margin-top: 0.5rem;
+        }
+
+        /* کارت‌های تماس */
+        .contact-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .contact-card {
+            background: rgba(20, 30, 48, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,210,255,0.2);
+            border-radius: 20px;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            text-decoration: none;
+            color: inherit;
+            min-width: 220px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d2ff;
+            box-shadow: 0 12px 30px rgba(0,210,255,0.3);
+            background: rgba(20, 30, 48, 0.85);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0,210,255,0.1);
+            color: #00d2ff;
+            transition: 0.3s;
+        }
+
+        .contact-card:hover .contact-icon {
+            background: rgba(0,210,255,0.25);
+            transform: scale(1.1);
+        }
+
+        .contact-detail {
+            font-size: 1.1rem;
+            font-weight: 500;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .contact-detail small {
+            display: block;
+            font-size: 0.8rem;
+            color: #8ab4f8;
+            margin-top: 3px;
+        }
+
+        /* عنوان بخش */
+        .section-title {
+            font-size: 2.2rem;
+            margin: 2rem 0 1.5rem;
+            text-align: center;
+            color: #00d2ff;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #00d2ff, #7b2ff7);
+            margin: 0.5rem auto 0;
+            border-radius: 3px;
+            box-shadow: 0 0 15px #00d2ff;
+        }
+
+        /* گرید خدمات */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .service-card {
+            background: rgba(20, 30, 48, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,210,255,0.15);
+            border-radius: 22px;
+            padding: 1.8rem 1.4rem;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0,210,255,0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #00d2ff;
+            box-shadow: 0 20px 40px rgba(0,210,255,0.3);
+            background: rgba(20, 30, 48, 0.85);
+        }
+
+        .service-icon {
+            font-size: 2.2rem;
+            color: #00d2ff;
+            margin-bottom: 1rem;
+            background: rgba(0,210,255,0.1);
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            transition: 0.3s;
+            z-index: 1;
+        }
+
+        .service-card:hover .service-icon {
+            background: rgba(0,210,255,0.25);
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+            z-index: 1;
+        }
+
+        .service-desc {
+            font-size: 0.9rem;
+            color: #b0c6e0;
+            z-index: 1;
+        }
+
+        /* برندها */
+        .brands {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 2.5rem 0;
+        }
+
+        .brand-tag {
+            background: rgba(0,210,255,0.08);
+            border: 1px solid rgba(0,210,255,0.25);
+            border-radius: 30px;
+            padding: 0.45rem 1.3rem;
+            font-size: 0.9rem;
+            color: #b0d4ff;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .brand-tag:hover {
+            background: rgba(0,210,255,0.2);
+            border-color: #00d2ff;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* فوتر */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            color: #5f7a9c;
+            font-size: 0.9rem;
+            border-top: 1px solid #1e2a3a;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        footer i {
+            color: #00d2ff;
+            margin: 0 3px;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+            .contact-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- کانواس ذرات متحرک -->
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="content">
+        <header>
+            <h1 class="logo">Hady Mobile</h1>
+            <p class="subtitle">مرکز تخصصی خدمات نرم‌افزاری و سخت‌افزاری موبایل</p>
+        </header>
+
+        <!-- کارت‌های تماس -->
+        <div class="contact-cards">
+            <a href="https://t.me/repairman8212" target="_blank" class="contact-card">
+                <div class="contact-icon"><i class="fab fa-telegram-plane"></i></div>
+                <div class="contact-detail">
+                    repairman8212
+                    <small>تلگرام</small>
+                </div>
+            </a>
+            <a href="tel:+0922253132" class="contact-card">
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="contact-detail">
+                    0922253132
+                    <small>تماس تلفنی</small>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="section-title">خدمات تخصصی</h2>
+        <div class="services-grid">
+            <!-- لیست کامل خدمات مانند قبل، بدون تغییر -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                <h3 class="service-title">بایپس آیکلود</h3>
+                <p class="service-desc">بایپس انواع آیفون و آیپد با حفظ پایداری</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fab fa-google"></i></div>
+                <h3 class="service-title">حذف گوگل اکانت</h3>
+                <p class="service-desc">رفع قفل FRP تمام برندهای اندروید</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-user-lock"></i></div>
+                <h3 class="service-title">حذف می اکانت</h3>
+                <p class="service-desc">خارج کردن اکانت شیائومی بدون دردسر</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-barcode"></i></div>
+                <h3 class="service-title">ترمیم سریال</h3>
+                <p class="service-desc">بازگردانی سریال و IMEI اصلی دستگاه</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-wave-square"></i></div>
+                <h3 class="service-title">ترمیم بیس باند و پچ سرت</h3>
+                <p class="service-desc">تعمیر بیس باند و گواهی شبکه</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-unlock-alt"></i></div>
+                <h3 class="service-title">حذف رمز بدون حذف اطلاعات</h3>
+                <p class="service-desc">برداشتن پترن / پین / پسورد با حفظ دیتا</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-database"></i></div>
+                <h3 class="service-title">بکاپ و ریستور دامپ</h3>
+                <p class="service-desc">تهیه نسخه پشتیبان و بازیابی پارتیشن‌ها</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="service-title">روت / آنروت</h3>
+                <p class="service-desc">دسترسی ریشه و حذف روت در اندروید</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fab fa-apple"></i></div>
+                <h3 class="service-title">جلبریک آیفون</h3>
+                <p class="service-desc">انواع جیلبریک با آخرین نسخه‌ها</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-language"></i></div>
+                <h3 class="service-title">فارسی‌سازی گوشی</h3>
+                <p class="service-desc">افزودن منو فارسی و کیبورد اختصاصی</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3 class="service-title">کاستوم رام و نصب رام شخصی</h3>
+                <p class="service-desc">ارائه و فلش رام‌های سفارشی و بهینه</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-id-card"></i></div>
+                <h3 class="service-title">ساخت اپل آیدی</h3>
+                <p class="service-desc">ایجاد اپل آیدی معتبر و ایمن</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3 class="service-title">ریستور آیفون</h3>
+                <p class="service-desc">بازیابی کامل آیفون بدون آپدیت اجباری</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                <h3 class="service-title">فلش تمامی مدل‌ها و برندها</h3>
+                <p class="service-desc">نصب فریمور رسمی و سفارشی برای تمام گوشی‌ها</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3 class="service-title">زنده کردن گوشی‌های خاموش</h3>
+                <p class="service-desc">تعمیر بوت و احیای دستگاه‌های Dead</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-shield-virus"></i></div>
+                <h3 class="service-title">حذف آنتی کرک‌ها</h3>
+                <p class="service-desc">غیرفعال‌سازی Anti-crack و قفل‌های محافظ</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-building"></i></div>
+                <h3 class="service-title">حذف MDM لاک</h3>
+                <p class="service-desc">برداشتن قفل مدیریت سازمانی دستگاه</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-check-circle"></i></div>
+                <h3 class="service-title">اکتیو آیفون</h3>
+                <p class="service-desc">فعال‌سازی آیفون بدون سیم‌کارت و اپل آیدی</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-user-friends"></i></div>
+                <h3 class="service-title">بازگردانی اکانت‌های شبکه اجتماعی</h3>
+                <p class="service-desc">ریکاوری اینستاگرام، تلگرام و سایر</p>
+            </div>
+        </div>
+
+        <!-- برندهای تحت پوشش -->
+        <div style="text-align: center; width: 100%;">
+            <h3 style="color: #8ab4f8; margin: 2rem 0 1rem;">سرویس‌دهی گوشی و تبلت</h3>
+            <div class="brands">
+                <span class="brand-tag">شیائومی</span>
+                <span class="brand-tag">سامسونگ</span>
+                <span class="brand-tag">اوپو</span>
+                <span class="brand-tag">ریلمی</span>
+                <span class="brand-tag">هواوی</span>
+                <span class="brand-tag">ال‌جی</span>
+                <span class="brand-tag">سونی</span>
+                <span class="brand-tag">بلک بری</span>
+                <span class="brand-tag">HTC</span>
+                <span class="brand-tag">گوشی و تبلت چینی</span>
+                <span class="brand-tag">آیفون / آیپد</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>تمامی حقوق برای <span style="color:#00d2ff;">Hady Mobile</span> محفوظ است <i class="far fa-copyright"></i></p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            const PARTICLE_COUNT = 70;
+            const MOTION_BLUR_ALPHA = 0.15; // میزان شفافیت برای ایجاد دنباله (موشن بلور)
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initParticles();
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.8,
+                        vy: (Math.random() - 0.5) * 0.8,
+                        radius: Math.random() * 2.5 + 1,
+                        color: `hsla(${Math.random() * 60 + 190}, 80%, 65%, 0.7)`
+                    });
+                }
+            }
+
+            function draw() {
+                // موشن بلور: به جای پاک کردن کامل، یک مستطیل نیمه شفاف می‌کشیم تا ذرات قبلی محو شوند
+                ctx.fillStyle = `rgba(10, 15, 30, ${MOTION_BLUR_ALPHA})`;
+                ctx.fillRect(0, 0, width, height);
+
+                particles.forEach(p => {
+                    // حرکت
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // بازتاب از لبه‌ها
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    // رسم ذره با هاله
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowColor = '#00d2ff';
+                    ctx.shadowBlur = 12;
+                    ctx.fill();
+                    ctx.shadowBlur = 0; // ریست
+                });
+
+                // اتصال ذرات نزدیک با خط
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 130) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(0, 210, 255, ${0.12 * (1 - dist / 130)})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            draw();
+        })();
+    </script>
+</body>
+</html>
