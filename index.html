@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-          <img src="soft_fast.webp" alt="Soft_Fast" style="max-width: 100%; height: auto;">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hady Mobile | خدمات تخصصی موبایل</title>
-    <!-- فونت وزیر -->
+    <title>Soft_Fast | خدمات تخصصی موبایل</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -15,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Vazirmatn', sans-serif;
             color: #e0e0e0;
@@ -23,24 +19,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             background: #0a0f1e;
-            position: relative;
         }
-
-        /* کانواس پس‌زمینه متحرک با موشن بلور */
-        #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            filter: blur(0.8px); /* بلور پایه */
-        }
-
-        /* محتوای اصلی */
         .content {
-            position: relative;
-            z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -48,13 +28,10 @@
             flex-direction: column;
             align-items: center;
         }
-
-        /* هدر با لوگو */
         header {
             text-align: center;
             margin: 2rem 0 1rem;
         }
-
         .logo {
             font-size: 4rem;
             font-weight: 900;
@@ -66,12 +43,10 @@
             letter-spacing: 2px;
             animation: logoPulse 3s ease-in-out infinite;
         }
-
         @keyframes logoPulse {
             0%, 100% { filter: drop-shadow(0 0 20px rgba(0,210,255,0.4)); }
             50% { filter: drop-shadow(0 0 40px rgba(0,210,255,0.8)); }
         }
-
         .subtitle {
             font-size: 1.3rem;
             color: #8ab4f8;
@@ -81,8 +56,6 @@
             padding-bottom: 0.4rem;
             margin-top: 0.5rem;
         }
-
-        /* کارت‌های تماس */
         .contact-cards {
             display: flex;
             flex-wrap: wrap;
@@ -90,7 +63,6 @@
             gap: 1.5rem;
             margin: 2rem 0 1.5rem;
         }
-
         .contact-card {
             background: rgba(20, 30, 48, 0.7);
             backdrop-filter: blur(20px);
@@ -106,14 +78,12 @@
             color: inherit;
             min-width: 220px;
         }
-
         .contact-card:hover {
             transform: translateY(-5px);
             border-color: #00d2ff;
             box-shadow: 0 12px 30px rgba(0,210,255,0.3);
             background: rgba(20, 30, 48, 0.85);
         }
-
         .contact-icon {
             font-size: 2.5rem;
             width: 60px;
@@ -126,27 +96,22 @@
             color: #00d2ff;
             transition: 0.3s;
         }
-
         .contact-card:hover .contact-icon {
             background: rgba(0,210,255,0.25);
             transform: scale(1.1);
         }
-
         .contact-detail {
             font-size: 1.1rem;
             font-weight: 500;
             direction: ltr;
             text-align: left;
         }
-
         .contact-detail small {
             display: block;
             font-size: 0.8rem;
             color: #8ab4f8;
             margin-top: 3px;
         }
-
-        /* عنوان بخش */
         .section-title {
             font-size: 2.2rem;
             margin: 2rem 0 1.5rem;
@@ -154,7 +119,6 @@
             color: #00d2ff;
             position: relative;
         }
-
         .section-title::after {
             content: '';
             display: block;
@@ -165,15 +129,12 @@
             border-radius: 3px;
             box-shadow: 0 0 15px #00d2ff;
         }
-
-        /* گرید خدمات */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.5rem;
             width: 100%;
         }
-
         .service-card {
             background: rgba(20, 30, 48, 0.65);
             backdrop-filter: blur(16px);
@@ -188,7 +149,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .service-card::before {
             content: '';
             position: absolute;
@@ -200,18 +160,15 @@
             opacity: 0;
             transition: opacity 0.4s;
         }
-
         .service-card:hover::before {
             opacity: 1;
         }
-
         .service-card:hover {
             transform: translateY(-8px);
             border-color: #00d2ff;
             box-shadow: 0 20px 40px rgba(0,210,255,0.3);
             background: rgba(20, 30, 48, 0.85);
         }
-
         .service-icon {
             font-size: 2.2rem;
             color: #00d2ff;
@@ -226,12 +183,10 @@
             transition: 0.3s;
             z-index: 1;
         }
-
         .service-card:hover .service-icon {
             background: rgba(0,210,255,0.25);
             transform: scale(1.1) rotate(2deg);
         }
-
         .service-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -239,14 +194,11 @@
             margin-bottom: 0.3rem;
             z-index: 1;
         }
-
         .service-desc {
             font-size: 0.9rem;
             color: #b0c6e0;
             z-index: 1;
         }
-
-        /* برندها */
         .brands {
             display: flex;
             flex-wrap: wrap;
@@ -254,7 +206,6 @@
             gap: 0.8rem;
             margin: 2.5rem 0;
         }
-
         .brand-tag {
             background: rgba(0,210,255,0.08);
             border: 1px solid rgba(0,210,255,0.25);
@@ -265,15 +216,12 @@
             transition: 0.3s;
             backdrop-filter: blur(5px);
         }
-
         .brand-tag:hover {
             background: rgba(0,210,255,0.2);
             border-color: #00d2ff;
             color: white;
             transform: scale(1.05);
         }
-
-        /* فوتر */
         footer {
             text-align: center;
             margin-top: 3rem;
@@ -284,12 +232,10 @@
             width: 100%;
             backdrop-filter: blur(10px);
         }
-
         footer i {
             color: #00d2ff;
             margin: 0 3px;
         }
-
         @media (max-width: 600px) {
             .logo {
                 font-size: 2.8rem;
@@ -305,16 +251,13 @@
     </style>
 </head>
 <body>
-    <!-- کانواس ذرات متحرک -->
-    <canvas id="particleCanvas"></canvas>
-
     <div class="content">
         <header>
-            <h1 class="logo">Hady Mobile</h1>
+            <img src="soft_fast.webp" alt="Soft_Fast" style="max-width: 100%; height: auto; margin-bottom: 1rem;">
+            <h1 class="logo">Soft_Fast</h1>
             <p class="subtitle">مرکز تخصصی خدمات نرم‌افزاری و سخت‌افزاری موبایل</p>
         </header>
 
-        <!-- کارت‌های تماس -->
         <div class="contact-cards">
             <a href="https://t.me/repairman8212" target="_blank" class="contact-card">
                 <div class="contact-icon"><i class="fab fa-telegram-plane"></i></div>
@@ -334,7 +277,6 @@
 
         <h2 class="section-title">خدمات تخصصی</h2>
         <div class="services-grid">
-            <!-- لیست کامل خدمات مانند قبل، بدون تغییر -->
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-cloud"></i></div>
                 <h3 class="service-title">بایپس آیکلود</h3>
@@ -432,7 +374,6 @@
             </div>
         </div>
 
-        <!-- برندهای تحت پوشش -->
         <div style="text-align: center; width: 100%;">
             <h3 style="color: #8ab4f8; margin: 2rem 0 1rem;">سرویس‌دهی گوشی و تبلت</h3>
             <div class="brands">
@@ -451,90 +392,8 @@
         </div>
 
         <footer>
-            <p>تمامی حقوق برای <span style="color:#00d2ff;">Hady Mobile</span> محفوظ است <i class="far fa-copyright"></i></p>
+            <p>تمامی حقوق برای <span style="color:#00d2ff;">Soft_Fast</span> محفوظ است <i class="far fa-copyright"></i></p>
         </footer>
     </div>
-
-    <script>
-        (function() {
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-
-            const PARTICLE_COUNT = 70;
-            const MOTION_BLUR_ALPHA = 0.15; // میزان شفافیت برای ایجاد دنباله (موشن بلور)
-
-            function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-                initParticles();
-            }
-
-            function initParticles() {
-                particles = [];
-                for (let i = 0; i < PARTICLE_COUNT; i++) {
-                    particles.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        vx: (Math.random() - 0.5) * 0.8,
-                        vy: (Math.random() - 0.5) * 0.8,
-                        radius: Math.random() * 2.5 + 1,
-                        color: `hsla(${Math.random() * 60 + 190}, 80%, 65%, 0.7)`
-                    });
-                }
-            }
-
-            function draw() {
-                // موشن بلور: به جای پاک کردن کامل، یک مستطیل نیمه شفاف می‌کشیم تا ذرات قبلی محو شوند
-                ctx.fillStyle = `rgba(10, 15, 30, ${MOTION_BLUR_ALPHA})`;
-                ctx.fillRect(0, 0, width, height);
-
-                particles.forEach(p => {
-                    // حرکت
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    // بازتاب از لبه‌ها
-                    if (p.x < 0 || p.x > width) p.vx *= -1;
-                    if (p.y < 0 || p.y > height) p.vy *= -1;
-
-                    // رسم ذره با هاله
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.shadowColor = '#00d2ff';
-                    ctx.shadowBlur = 12;
-                    ctx.fill();
-                    ctx.shadowBlur = 0; // ریست
-                });
-
-                // اتصال ذرات نزدیک با خط
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 130) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(0, 210, 255, ${0.12 * (1 - dist / 130)})`;
-                            ctx.lineWidth = 0.6;
-                            ctx.stroke();
-                        }
-                    }
-                }
-
-                requestAnimationFrame(draw);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            draw();
-        })();
-    </script>
 </body>
 </html>
